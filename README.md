@@ -6,23 +6,56 @@ A Python library for converting YAML workout definitions to `.plan` format files
 
 This library allows you to define cycling workouts in a human-readable YAML format and convert them to the `.plan` format. The `.plan` format includes intervals with target power zones (as percentages of FTP), durations, and workout metadata.
 
-## Installation
+## Wahoo Workout Generator CLI
 
-```bash
-# Clone the repository
-git clone <your-repo-url>
-cd wahoo_plan
+This project also includes a CLI program to generate Wahoo .plan files and interval plots.
 
-# Install dependencies using uv
-uv sync
+## Getting Started
 
-# Or install manually
-uv pip install pyyaml pytest
+1.  **Open a terminal or command prompt.**
+2.  **Navigate to the project directory:**
+    ```
+    cd C:\Users\som\coding\wahoo_plane
+    ```
+3.  **Activate the virtual environment:**
+    *   On Windows:
+        ```
+        .venv\Scripts\activate
+        ```
+    *   On macOS and Linux:
+        ```
+        source .venv/bin/activate
+        ```
+4.  **Run the CLI:**
+    ```
+    wahoo
+    ```
+    This will start the workout generator and ask you if you want to generate a workout from a file or interactively.
+
+### Installation
+
+To install the dependencies, run the following command:
+
+```
+pip install -e .
 ```
 
-## Usage
+## Testing
 
-### YAML Workout Format
+### Manual Testing
+
+To manually test the CLI, run the `wahoo` command and choose the interactive mode. You can also create a YAML file and use the `from-file` mode.
+
+### Automated Testing
+
+To run the automated tests, run the following command:
+
+```bash
+# Run all tests
+pytest
+```
+
+## YAML Workout Format
 
 Define your workout in YAML format:
 
@@ -52,101 +85,24 @@ intervals:
     duration: 600
 ```
 
-### Converting YAML to .plan
-
-#### As a Python Module
-
-```python
-from yaml_to_plan import yaml_to_plan
-import yaml
-
-# Load YAML workout
-with open('workout.yaml', 'r') as f:
-    workout_data = yaml.safe_load(f)
-
-# Convert to .plan format
-plan_content = yaml_to_plan(workout_data)
-
-# Save to file
-with open('workout.plan', 'w') as f:
-    f.write(plan_content)
-```
-
-#### Command Line
-
-```bash
-python yaml_to_plan.py input.yaml output.plan
-```
-
-## YAML Schema
-
-### Required Fields
-- `name`: Workout name (string)
-- `duration`: Total duration in seconds (integer)
-- `tss`: Training Stress Score (integer)
-- `if`: Intensity Factor (float)
-- `intervals`: List of workout intervals
-
-### Interval Structure
-```yaml
-intervals:
-  - name: "Interval Name"           # Required
-    percent_ftp: 105               # Required: Target power as % of FTP
-    duration: 240                  # Required: Duration in seconds
-    repeat: 3                      # Optional: Number of repetitions
-    subintervals:                  # Optional: For complex interval blocks
-      - name: "Sub-interval"
-        percent_ftp: 105
-        duration: 240
-```
-
-## Generated .plan Format
-
-The converter generates files compatible with training software that uses the `.plan` format:
-
-```
-=HEADER=
-
-NAME=4x4 3-2-1
-DURATION=3420
-
-TSS=62
-IF=0.81
-
-DESCRIPTION=4x4 på 105%, avsluttet med 3-2-1 pyramide.
-
-=STREAM=
-
-=INTERVAL=
-INTERVAL_NAME=WARM UP
-PERCENT_FTP_HI=50
-MESG_DURATION_SEC>=300?EXIT
-```
-
 ## Development
-
-### Running Tests
-
-```bash
-# Run all tests
-uv run pytest
-
-# Run with verbose output
-uv run pytest -v
-
-# Run specific test file
-uv run pytest tests/test_yaml_to_plan.py
-```
 
 ### Project Structure
 
 ```
 wahoo_plan/
-├── yaml_to_plan.py          # Main converter module
+├── src/
+│   └── wahoo_plane/
+│       ├── __init__.py
+│       ├── cli.py
+│       ├── interactive_workout.py
+│       ├── plot_intervals.py
+│       └── yaml_to_plan.py
 ├── tests/
-│   └── test_yaml_to_plan.py # Test suite
-├── pyproject.toml           # Project configuration
-└── README.md               # This file
+│   ├── test_cli.py
+│   └── test_yaml_to_plan.py
+├── pyproject.toml
+└── README.md
 ```
 
 ## Examples
@@ -158,7 +114,7 @@ See the included `4x4-3-2-1.plan` file for a complete example of the output form
 1. Fork the repository
 2. Create a feature branch
 3. Add tests for new functionality
-4. Run the test suite: `uv run pytest`
+4. Run the test suite: `pytest`
 5. Submit a pull request
 
 ## License

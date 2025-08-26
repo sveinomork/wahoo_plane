@@ -1,5 +1,5 @@
 import yaml
-from yaml_to_plan import yaml_to_plan
+from wahoo_plane.yaml_to_plan import yaml_to_plan
 
 def test_yaml_to_plan_basic():
     yaml_input = {
