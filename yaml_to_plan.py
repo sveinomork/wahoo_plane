@@ -1,4 +1,5 @@
 import yaml
+import os
 
 def yaml_to_plan(yaml_data):
     lines = []
@@ -43,9 +44,18 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Usage: python yaml_to_plan.py input.yaml output.plan")
         sys.exit(1)
-    with open(sys.argv[1], 'r', encoding='utf-8') as f:
+    
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+    
+    # Add _generated_by_library suffix if not already present
+    if not output_file.endswith('_generated_by_library.plan'):
+        base_name = os.path.splitext(output_file)[0]
+        output_file = f"{base_name}_generated_by_library.plan"
+    
+    with open(input_file, 'r', encoding='utf-8') as f:
         yaml_data = yaml.safe_load(f)
     plan_text = yaml_to_plan(yaml_data)
-    with open(sys.argv[2], 'w', encoding='utf-8') as f:
+    with open(output_file, 'w', encoding='utf-8') as f:
         f.write(plan_text)
-    print(f"Converted {sys.argv[1]} to {sys.argv[2]}")
+    print(f"Converted {input_file} to {output_file}")
