@@ -1,0 +1,17 @@
+[project]
+name = "wahoo-plan"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pyaml>=25.7.0",
+    "pytest>=8.4.1",
+]
+[tool.pytest.ini_options]
+pythonpath = [
+    "."
+]
+testpaths = [
+    "tests"
+]
