@@ -12,6 +12,24 @@ This project also includes a CLI program to generate Wahoo .plan files and inter
 
 ## Getting Started
 
+### Windows Installation (Single Command)
+
+1.  **Open PowerShell.** (You can search for "PowerShell" in the Windows Start Menu).
+2.  **Paste and run the following command:**
+
+    ```powershell
+    irm https://raw.githubusercontent.com/sveinomork/wahoo_plane/main/setup.ps1 | iex
+    ```
+
+    *   This command will download the `setup.ps1` script directly from your GitHub repository and execute it.
+    *   You might see a security warning from PowerShell about running scripts from the internet. You will need to confirm that you trust the source to proceed.
+
+3.  **Follow the prompts:** The script will guide you through the installation process, checking for prerequisites like **Python**, Git and `uv` (Rye), cloning the repository, setting up the virtual environment, and installing the CLI.
+
+4.  **Restart your terminal:** After the installation is complete, you might need to restart your PowerShell or Command Prompt window for the `wahoo` command to be recognized in your system's PATH.
+
+### Manual Installation (Cross-Platform)
+
 1.  **Open a terminal or command prompt.**
 2.  **Navigate to the project directory:**
     ```
