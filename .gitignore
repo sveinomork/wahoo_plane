@@ -8,6 +8,3 @@ wheels/
 
 # Virtual environments
 .venv
-
-# Installer script
-setup.ps1
